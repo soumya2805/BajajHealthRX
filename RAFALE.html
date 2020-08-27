@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+  <head>
+    <title>RAFALE</title>
+    <style>
+    	*{
+    	margin:0;
+    	padding:0;
+    	}
+    	#map{
+    			height: 500px;
+    			width: 100%;
+    	}
+    
+    </style>
+  </head>
+  <body>
+   
+   <div id="map"></div>
+   
+   <script>
+   
+   		function initMap(){
+   			var location= {lat: 48.856613,lng: 2.352222};
+   			var location2= {lat:30.338430,lng: 76.830093};
+   			var location3= {lat:38.963745,lng: 35.243320};
+   			
+   			
+   			var map = new google.maps.Map(document.getElementById("map"),{zoom: 4,center: location3});
+   			var marker= new google.maps.Marker({position: location, map:map});
+   			var marker2= new google.maps.Marker({position: location2, map:map});
+   			
+   			
+   				const lineSymbol = {
+    	path: google.maps.SymbolPath.CIRCLE,
+    	scale: 8,
+    	strokeColor: "#000000"
+ 		 };
+   			
+   			
+   			const line = new google.maps.Polyline({
+    	path: [
+      		{ lat: 48.856613,lng: 2.352222 },
+      		{ lat: 30.338430,lng: 76.830093 }
+    	],
+    	icons: [
+     	 {
+        	icon: lineSymbol,
+        	offset: "100%"
+    	  }
+    	],
+    	map: map
+ 	 });
+ 	 animateCircle(line);
+		}
+ 
+   		
+   		function animateCircle(line) {
+  			let count = 0;
+  			window.setInterval(() => {
+   		 	count = (count + 1) % 200;
+   			 const icons = line.get("icons");
+    		icons[0].offset = count / 2 + "%";
+    		line.set("icons", icons);
+  			}, 20);
+  			
+  	}
+   </script>
+     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOQlTjuiAOIxJ9kDfgpnMGmhxI6cT6-d0&callback=initMap"
+  type="text/javascript"></script>
+
+
+
+  </body>
+</html>
